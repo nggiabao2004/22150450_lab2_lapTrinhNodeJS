@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const { title } = require('process');
 const app = express();
 const port = 3000;
 
@@ -16,6 +17,21 @@ app.get('/', (req, res) => {
 
 app.get('/login', (req, res) => {
     res.render('login', { title: 'Login'})
+});
+
+app.post('/login', (req, res)=>{
+    const {username, password} = req.body;
+
+    //kiem tra thong tin dang nhap 
+    if (username === 'admin' && password === 'admin'){
+        res.redirect('/success');
+    } else {
+        res.send('Nhap sai thong tin dang nhap');
+    }
+});
+
+app.get('/project', (req, res) => {
+    res.render('project', {title: 'Project'})
 });
 
 app.listen(port, () => {
